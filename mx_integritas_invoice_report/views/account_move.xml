@@ -163,7 +163,7 @@
 						        		</td>
 						        		<td style="text-align:right">
 						        			<t t-set="discount_price" t-value="((descuento / contador) * subtotal) / 100"/>
-						        			<span  style="font-size:1rem!important"><t t-esc="'- $ ' + str('{0:,.2f}'.format(discount_price))"></t></span><br/>
+						        			<span  style="font-size:1rem!important"><t t-esc="'- $ ' + str('{0:,.3f}'.format(discount_price))"></t></span><br/>
 						        		</td>
 						        	</tr>
 						        </table>
