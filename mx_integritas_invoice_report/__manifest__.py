@@ -7,7 +7,7 @@
         subtitle on modules listing or apps.openerp.com""",
 
     'description': """
-        Modifica el reporte de facturas a una estructura parecida al SAT. Inte
+        Modifica el reporte de facturas a una estructura parecida al SAT.
     """,
 
     'author': "Integritas",

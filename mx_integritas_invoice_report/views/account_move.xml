@@ -8,7 +8,7 @@
             <xpath expr="//div[@id='informations']" position="replace">
 				<t t-set="xml" t-value="o.l10n_mx_edi_get_xml_etree()"/>
 				<t t-set="tfd" t-value="o.l10n_mx_edi_get_tfd_etree(xml)"/>
-			    <t t-set="tfd_original_string" t-value="o._get_l10n_mx_edi_cadena()"/>
+			    
 			    <t t-set="external" t-value="o.l10n_mx_edi_get_et_etree(xml)"/>
 				<div id="informations">
 				    <table class=" mb32" style="width:100%;font-size:.8rem!important">
@@ -24,7 +24,7 @@
 							        <div t-if="o.company_id.street">
 							        	<strong>Domicilio Fiscal:</strong> <span t-field="o.company_id.street"/><br/>
 							        </div>
-							        <div t-if="xml.get('Folio')">
+							        <div t-if="xml">
 							        	<strong>Folio:</strong> <span t-esc="xml.get('Folio')"/><br/>
 							        </div>
 							        <div t-if="o.partner_id.vat">
@@ -46,7 +46,7 @@
 							    	<div t-if="o.l10n_mx_edi_cfdi_uuid">
 							    		<strong>Folio Fiscal:</strong> <span t-field="o.l10n_mx_edi_cfdi_uuid"/><br/>
 							    	</div>
-							    	<div t-if="xml.get('NoCertificado')">
+							    	<div t-if="xml">
 							    		<strong>No. de serie del CSD</strong> <span t-esc="xml.get('NoCertificado')"/><br/>
 								        <!--<t t-set="icount" t-value="0"/>
 								        <t t-foreach="request.env['res.config.settings'].search([('id', '=', 1)])" t-as="cer">
@@ -58,10 +58,10 @@
 							        		</t>
 								        </t>-->
 							    	</div>
-							    	<div t-if="xml.get('fecha', xml.get('Fecha', ''))">
+							    	<div t-if="xml">
 							    		<strong>Código Postal, fecha y hora de la emisión:</strong> <span t-esc="o.partner_id.zip"></span>, <span t-esc="xml.get('fecha', xml.get('Fecha', '')).replace('T', ' ')"/><br/>
 							    	</div>
-							    	<div t-if="xml.get('TipoDeComprobante')">
+							    	<div t-if="xml">
 							    		<strong>Efecto de comprobante:</strong>
 								        <t t-if="xml.get('TipoDeComprobante') == 'I'">
 											<span t-esc="'Ingreso'"/><br/>
@@ -100,7 +100,7 @@
             <xpath expr="//div[@id='total']" position="before">
 				<t t-set="xml" t-value="o.l10n_mx_edi_get_xml_etree()"/>
 				<t t-set="tfd" t-value="o.l10n_mx_edi_get_tfd_etree(xml)"/>
-			    <t t-set="tfd_original_string" t-value="o._get_l10n_mx_edi_cadena()"/>
+			    
 			    <t t-set="external" t-value="o.l10n_mx_edi_get_et_etree(xml)"/>
 				<table class="mt32 mb32" style="width:100%;font-size:.8rem!important">
 					<tr>
@@ -109,7 +109,7 @@
 						    	<div t-if="o.currency_id.name">
 						    		<strong>Moneda:</strong> <span t-field="o.currency_id.name"/><br/>
 						    	</div>
-						        <div t-if="xml.get('FormaPago')">
+						        <div t-if="xml">
 						        	<strong>Forma de pago:</strong> 
 							        <t t-if="xml.get('FormaPago') == '01'">
 										<span t-esc="'Efectivo'"/><br/>
@@ -124,7 +124,7 @@
 										<span t-esc="'Por definir'"/><br/>
 							        </t>
 						        </div>
-						        <div t-if="xml.get('MetodoPago')">
+						        <div t-if="xml">
 					        		<strong>Método de pago:</strong> <span t-esc="xml.get('MetodoPago')"/><br/>
 						        </div>
 						    </div>
@@ -145,23 +145,29 @@
 						        </t>
 						        <table style="width:100%">
 						        	<tr t-if="subtotal">
-						        		<td style="width:100%">
+						        		<td>
 					        			 	<strong style="font-size:1rem!important">Subtotal: </strong><br/>
 						        		</td>
-						        		<td style="width:100%">
-						        			<span  style="font-size:1rem!important">$<t t-esc="'{0:,.2f}'.format(subtotal)"/></span>
+						        		<td ></td>
+						        		<td style="text-align:right">
+						        			<span  style="font-size:1rem!important">$ <t t-esc="'{0:,.2f}'.format(subtotal)"/></span>
 						        		</td>
 						        	</tr>
-						        	<tr>
-						        		<td style="width:100%">
+						        	<tr >
+						        		<td style="">
 					        			 	<strong style="font-size:1rem!important">Descuento: </strong><br/>
 						        		</td>
-						        		<td style="width:100%">
-						        			<span  style="font-size:1rem!important"><t t-esc="'-' + str((descuento / contador)) + '%'"></t></span><br/>
+						        		<td style="text-align:right">
+						        			<t t-set="percentaje" t-value="(descuento / contador)"/>
+					        			 	<span style="font-size:1rem!important"><t t-esc="'-' + str(percentaje) + '%'"></t></span><br/>
+						        		</td>
+						        		<td style="text-align:right">
+						        			<t t-set="discount_price" t-value="((descuento / contador) * subtotal) / 100"/>
+						        			<span  style="font-size:1rem!important"><t t-esc="'- $ ' + str('{0:,.2f}'.format(discount_price))"></t></span><br/>
 						        		</td>
 						        	</tr>
 						        </table>
-						       
+						       	
 						        
 						        <!--<strong>Subtotal: </strong><t t-esc="subtotal"></t><br/>
 						        <strong>Descuento: </strong><t t-esc="'-' + str((descuento / contador)) + '%'"></t><br/>
