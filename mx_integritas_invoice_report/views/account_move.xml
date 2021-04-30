@@ -137,8 +137,8 @@
 						     	<t t-set="descuento" t-value="0"/>
 						     	<t t-set="contador" t-value="0"/>
 						     	<t t-foreach="o.invoice_line_ids" t-as="line">
-						            <t t-set="subtotal_price_unit" t-value="round((line.quantity * line.price_unit) ,2)"/> 
-						         	<t t-set="subtotal" t-value="round(subtotal + subtotal_price_unit,2)"></t>
+						            <t t-set="subtotal_price_unit" t-value="round((line.quantity * line.price_unit) ,4)"/> 
+						         	<t t-set="subtotal" t-value="round(subtotal + subtotal_price_unit,4)"></t>
 						         	<t t-set="contador" t-value="contador + 1"></t>
 						         	<t t-set="descuento" t-value="(descuento + line.discount)"></t>
 
