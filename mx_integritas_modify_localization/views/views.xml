@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="Integritas_View_Modify_Folio_Fiscal" model="ir.ui.view">
+        <field name="name">Modify folio fiscal 1</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="l10n_mx_edi.view_l10n_mx_edi_invoice_form_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='o_row'][2]" position="attributes">
+                <attribute name="attrs">{}</attribute>
+            </xpath>
+
+        </field>
+    </record>
+    <record id="Integritas_View_Modify_Folio_Fiscal_2" model="ir.ui.view">
+        <field name="name">Modify folio fiscal 2</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="l10n_mx_edi.view_l10n_mx_edi_invoice_form_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//label[@for='l10n_mx_edi_cfdi_uuid']" position="attributes">
+              <attribute name="attrs">{}</attribute>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
