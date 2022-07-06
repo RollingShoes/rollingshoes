@@ -14,6 +14,7 @@
     'website': "http://integritas.mx",
     'category': 'Uncategorized',
     'version': '0.1',
+    'license': 'LGPL-3',
     'depends': ['base','l10n_mx_edi'],
     'data': [
         'views/views.xml',
